@@ -31,11 +31,15 @@ kubectl create deployment springboot-test --image=vbodocker/springboot-test:late
 
 # exposes port 8000 poiting to port 8080
 kubectl expose deployment springboot-test --port=8000 --target-port=8080 --type=NodePort
-kubectl get service
+
+# invoke endpoint
+kubectl get services
 #NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 #kubernetes        ClusterIP   10.96.0.1       <none>        443/TCP          19m
 #springboot-test   NodePort    10.102.123.27   <none>        8000:32696/TCP   8s
-curl http://10.102.123.27:8000/dummy
+
+IP_SPRINGBOOT=$(kubectl get services | grep springboot | awk '//{print $3}')
+curl http://$IP_SPRINGBOOT:8000/dummy
 # [{"fieldA":"AAA","fieldB":"CCC"},{"fieldA":"AAA2","fieldB":"CCC2"}]
 
 # delete service
