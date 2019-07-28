@@ -1,7 +1,7 @@
 # springboot-test
 
 ## Build
-mvvn clean install
+mvn clean install
 
 ## Execute
 
